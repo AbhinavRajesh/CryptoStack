@@ -14,13 +14,14 @@ contract CryptoStackMain {
   struct Question{
     uint id;
     address questionaireAddress;
-    bool isAnswer;
+    bool isAnswered;
     string questionString;
   }
   struct Answer{
     uint id;
     uint questionId;
-    address replierAddress;
+    bool isAccepted;
+    address payable replierAddress;
     string answerString;
   }
   uint public userCount;
@@ -38,5 +39,19 @@ contract CryptoStackMain {
   function createNewQuestion(string memory _questionString) external {
       questions[questionCount] = Question(questionCount, msg.sender, false , _questionString);
       questionCount++;
+  }
+
+  function answerQuestion( uint _questionId,string memory _answerString) external {
+      answers[answerCount] = Answer(answerCount, _questionId, false, payable(msg.sender), _answerString);
+      answerCount++;
+  }
+  
+  function acceptAnswer(uint _answerId) external {
+      Answer memory answer = answers[_answerId];
+      require(questions[answer.questionId].questionaireAddress == msg.sender);
+      questions[answer.questionId].isAnswered = true;
+      answers[_answerId].isAccepted = true;
+      payable(answers[_answerId].replierAddress).transfer(0.01 ether);
+
   }
 }
