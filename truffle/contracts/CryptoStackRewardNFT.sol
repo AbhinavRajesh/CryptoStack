@@ -24,12 +24,16 @@ contract CryptoStackRewardNFT is ERC721, ERC721URIStorage, AccessControl {
         _setupRole(MINTER_ROLE, msg.sender);
     }
 
+    function returnNFTCount() public view returns(uint) {
+        return nfts.length;
+    }
+
     function safeMint(address to, string memory uri) public onlyRole(MINTER_ROLE) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-        nfts.push(NFT(tokenId, msg.sender));
+        nfts.push(NFT(tokenId, to));
     }
 
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
