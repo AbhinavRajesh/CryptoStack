@@ -1,22 +1,33 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
-contract CryptoStackMain {
-  constructor() {
-    
-  }
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+interface INFTContract {
+  function safeMint(address to, string memory uri) external;
+}
+
+contract CryptoStackMain is Ownable {
+
+  address NFTContractAddress;
+
+  uint public userCount;
+  uint public questionCount;
+  uint public answerCount;
+
   struct User{
     uint userPoints;
     address userAddress;
     string userName;
-
   }
+
   struct Question{
     uint id;
     address questionaireAddress;
     bool isAnswered;
     string questionString;
   }
+
   struct Answer{
     uint id;
     uint questionId;
@@ -24,34 +35,71 @@ contract CryptoStackMain {
     address payable replierAddress;
     string answerString;
   }
-  uint public userCount;
-  uint public questionCount;
-  uint public answerCount;
+  
   User[] public users;
   Question[] public questions;
   Answer[] public answers;
 
+  function isRegisteredUser(address _user) public view returns(bool) {
+    bool registeredUser;
+    for (uint i = 0; i < userCount; ++i) {
+      if (users[i].userAddress == _user) {
+        registeredUser = true;
+      }
+    }
+    return registeredUser;
+  }
+
+  function isFrequentContributor(address _user) public view returns(bool) {
+    bool frequentContributor;
+    for (uint i = 0; i < userCount; ++i) {
+      if (users[i].userAddress == _user && users[i].userPoints > 100) {
+        frequentContributor = true;
+      }
+    }
+    return frequentContributor;
+  }
+
+  function setNFTContractAddress(address _NFTContractAddress) external onlyOwner {
+    NFTContractAddress = _NFTContractAddress;
+  }
+
   function registerNewUser(string memory _userName ) external {
-     users[userCount] = User(0, msg.sender, _userName );
-      userCount++;
+    users[userCount] = User(0, msg.sender, _userName );
+    userCount++;
   }
 
   function createNewQuestion(string memory _questionString) external {
-      questions[questionCount] = Question(questionCount, msg.sender, false , _questionString);
-      questionCount++;
+    require(isRegisteredUser(msg.sender), "Not registered user");
+    questions[questionCount] = Question(questionCount, msg.sender, false , _questionString);
+    questionCount++;
   }
 
-  function answerQuestion( uint _questionId,string memory _answerString) external {
-      answers[answerCount] = Answer(answerCount, _questionId, false, payable(msg.sender), _answerString);
-      answerCount++;
+  function answerQuestion( uint _questionId, string memory _answerString) external {
+    require(isRegisteredUser(msg.sender), "Not registered user");
+    answers[answerCount] = Answer(answerCount, _questionId, false, payable(msg.sender), _answerString);
+    for (uint i = 0; i < userCount; ++i) {
+      if (users[i].userAddress == msg.sender) {
+        users[i].userPoints += 10;
+      }
+    }
+    answerCount++;
   }
   
   function acceptAnswer(uint _answerId) external {
-      Answer memory answer = answers[_answerId];
-      require(questions[answer.questionId].questionaireAddress == msg.sender);
-      questions[answer.questionId].isAnswered = true;
-      answers[_answerId].isAccepted = true;
-      payable(answers[_answerId].replierAddress).transfer(0.01 ether);
+    Answer memory answer = answers[_answerId];
+    require(questions[answer.questionId].questionaireAddress == msg.sender);
+    questions[answer.questionId].isAnswered = true;
+    answers[_answerId].isAccepted = true;
+    payable(answers[_answerId].replierAddress).transfer(0.01 ether);
+  }
 
+  function payToMint(string memory _uri) external payable {
+    if (isFrequentContributor(msg.sender)) {
+      require(msg.value >= 0.05 ether, "Insufficient amount");
+    } else {
+      require(msg.value >= 0.1 ether, "Insufficient amount"); 
+    }
+    INFTContract(NFTContractAddress).safeMint(msg.sender, _uri);
   }
 }
