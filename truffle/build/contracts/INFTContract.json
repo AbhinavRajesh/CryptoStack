@@ -34,7 +34,7 @@
     "absolutePath": "/D/Hackathons/Devfolio online/ByteSynergy/project/CryptoStack/truffle/contracts/CryptoStackMain.sol",
     "exportedSymbols": {
       "Context": [
-        480
+        2488
       ],
       "CryptoStackMain": [
         353
@@ -43,7 +43,7 @@
         10
       ],
       "Ownable": [
-        458
+        1016
       ]
     },
     "id": 354,
@@ -71,7 +71,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 354,
-        "sourceUnit": 459,
+        "sourceUnit": 1017,
         "src": "69:52:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -185,7 +185,7 @@
               "id": 11,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 458,
+              "referencedDeclaration": 1016,
               "src": "246:7:0"
             },
             "id": 12,
@@ -194,16 +194,16 @@
           }
         ],
         "contractDependencies": [
-          458,
-          480
+          1016,
+          2488
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 353,
         "linearizedBaseContracts": [
           353,
-          458,
-          480
+          1016,
+          2488
         ],
         "name": "CryptoStackMain",
         "nameLocation": "227:15:0",
@@ -1834,7 +1834,7 @@
                   "id": 144,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 400,
+                  "referencedDeclaration": 958,
                   "src": "1488:9:0"
                 },
                 "nodeType": "ModifierInvocation",
@@ -4523,7 +4523,7 @@
     "absolutePath": "/D/Hackathons/Devfolio online/ByteSynergy/project/CryptoStack/truffle/contracts/CryptoStackMain.sol",
     "exportedSymbols": {
       "Context": [
-        480
+        2488
       ],
       "CryptoStackMain": [
         353
@@ -4532,7 +4532,7 @@
         10
       ],
       "Ownable": [
-        458
+        1016
       ]
     },
     "id": 354,
@@ -4560,7 +4560,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 354,
-        "sourceUnit": 459,
+        "sourceUnit": 1017,
         "src": "69:52:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4674,7 +4674,7 @@
               "id": 11,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 458,
+              "referencedDeclaration": 1016,
               "src": "246:7:0"
             },
             "id": 12,
@@ -4683,16 +4683,16 @@
           }
         ],
         "contractDependencies": [
-          458,
-          480
+          1016,
+          2488
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 353,
         "linearizedBaseContracts": [
           353,
-          458,
-          480
+          1016,
+          2488
         ],
         "name": "CryptoStackMain",
         "nameLocation": "227:15:0",
@@ -6323,7 +6323,7 @@
                   "id": 144,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 400,
+                  "referencedDeclaration": 958,
                   "src": "1488:9:0"
                 },
                 "nodeType": "ModifierInvocation",
@@ -9014,7 +9014,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-02-12T10:31:50.503Z",
+  "updatedAt": "2022-02-12T10:51:46.803Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

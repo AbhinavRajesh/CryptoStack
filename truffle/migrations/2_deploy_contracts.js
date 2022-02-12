@@ -2,8 +2,8 @@ const CryptoStackMain = artifacts.require('CryptoStackMain');
 const CryptoStackRewardNFT = artifacts.require('CryptoStackRewardNFT');
 
 module.exports = async function(deployer) {
-    deployer.deploy(CryptoStackMain);
-    deployer.deploy(CryptoStackRewardNFT);
+    await deployer.deploy(CryptoStackMain);
+    await deployer.deploy(CryptoStackRewardNFT);
 
     const CSMain = await CryptoStackMain.deployed();
     const CSNFT = await CryptoStackRewardNFT.deployed();
