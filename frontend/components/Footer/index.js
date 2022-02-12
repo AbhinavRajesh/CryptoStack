@@ -1,16 +1,14 @@
+import Image from "next/image";
+
 const Footer = () => {
   return (
-    <footer>
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+    <footer className="max-w-[1440px] mx-auto flex items-center justify-center p-[100px]">
+      <div className="flex items-center justify-center">
         Powered by{" "}
-        <span className>
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+        <span className="ml-[20px]">
+          <Image src="/logo.svg" alt="CryptoStack" width={51} height={59} />
         </span>
-      </a>
+      </div>
     </footer>
   );
 };

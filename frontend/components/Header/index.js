@@ -8,7 +8,7 @@ const Header = () => {
       <Head>
         <title>CryptoStack</title>
         <meta name="description" content="CryptoStack" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
       <header className="flex items-center justify-between max-w-[1440px] mx-auto py-[10px] px-[32px] md:px-[64px] lg:px-[120px]">
         <h1 className="flex-1 flex items-center justify-start">
