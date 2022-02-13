@@ -21,14 +21,14 @@ contract CryptoStackMain is Ownable {
     string userName;
   }
 
-  struct Question{
+  struct Question {
     uint id;
     address questionaireAddress;
     bool isAnswered;
     string questionString;
   }
 
-  struct Answer{
+  struct Answer {
     uint id;
     uint questionId;
     bool isAccepted;
