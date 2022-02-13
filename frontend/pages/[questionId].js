@@ -52,7 +52,7 @@ const Question = () => {
             {answers ? (
               <div className="flex flex-col">
                 {answers?.map(
-                  ({ isAccepted, answerString, replierAddress, id }, i) => (
+                  ({ isAccepted, answerString, replierUsername, id }, i) => (
                     <div
                       className="shadow p-[30px] text-base text-gray-600 mt-[20px] flex flex-col items-start"
                       key={`answer-${i}`}
@@ -66,8 +66,8 @@ const Question = () => {
                         </div>
                       )}
                       <h4 className="text-sm mb-[10px] border-b-[1px] pb-[10px] flex items-center">
-                        <span>Answered by: </span>
-                        <span className="font-bold">{replierAddress}</span>
+                        <span>Answered by:</span>
+                        <span className="font-bold">{replierUsername}</span>
                       </h4>
                       <p className="">{answerString}</p>
                       {questionData.questionaireAddress === address && (
@@ -85,7 +85,7 @@ const Question = () => {
                 <div className="flex flex-col items-start mt-[20px]">
                   <p>
                     Not satisfied with the given answer? Write an answer and get
-                    a chance to win a NFT!{" "}
+                    a chance to win CELO tokens!{" "}
                     <Link href="/nft">
                       <a className="text-blue-500 font-semibold">Learn more</a>
                     </Link>

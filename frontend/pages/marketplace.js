@@ -3,30 +3,28 @@ import Header from "../components/Header";
 import NFTCard from "../components/NFTCard";
 import { Web3Context } from "../context/Web3Context";
 
-import NFT1 from "../public/nfts/1.png";
-import NFT2 from "../public/nfts/2.png";
-import NFT3 from "../public/nfts/3.png";
-import NFT4 from "../public/nfts/4.png";
-import NFT5 from "../public/nfts/5.png";
-import NFT6 from "../public/nfts/6.png";
-import NFT7 from "../public/nfts/7.png";
-import NFT8 from "../public/nfts/8.png";
-import NFT9 from "../public/nfts/9.png";
+const NFT1 = "https://ipfs.io/ipfs/bafybeia4ti47nq5aifjy4wh6kule3z7tmj6ugwls7z3pdzl4zlsjqki2pe";
+const NFT2 = "https://ipfs.io/ipfs/bafybeibvzodfpehwokqst5f3r6s7e4gelflg6onqre2dwyls2xx3752eum";
+const NFT3 = "https://ipfs.io/ipfs/bafybeibpmm7fhud5xrkwa2dlifkfgqvokhautqxlljbz5vgdrlxi56px5e";
+const NFT4 = "https://ipfs.io/ipfs/bafkreidnaqmxcce5dvs3dt5py2zh4jattnuehn72gkk5a5ldbveq27fct4";
+const NFT5 = "https://ipfs.io/ipfs/bafkreiajqnxw5hjrv3je55bqrwvabe744b4xqx6sgxe4w2cmvmcg6ijfki";
+const NFT6 = "https://ipfs.io/ipfs/bafkreifgfvy2uhx3dknvu6rquijabqqy4fwfbgp5py4pp6erzxo6iwy4bq";
+const NFT7 = "https://ipfs.io/ipfs/bafkreifglinbybw4monitik2f6xtiakhioefsew33yvfa2c5t3kgdyruhi";
+const NFT8 = "https://ipfs.io/ipfs/bafybeig2avkvz3it7e6mubk6mi722ehbkd4mbyl7bhvg4p5cs2l7egxoji";
+const NFT9 = "https://ipfs.io/ipfs/bafybeifs4xllc3nlnqv6o55uaph5sfxfitv3plflsrz2bk4ongsingj5qi";
 
 const MarketPlace = () => {
   const [price, setPrice] = useState(0.1);
-  const { isFrequentContributor } = useContext(Web3Context);
+  const { CryptoStack, isFrequentContributor } = useContext(Web3Context);
 
   useEffect(() => {
-    getPrice();
-  }, []);
+    if (CryptoStack) getPrice();
+  }, [CryptoStack]);
 
   const getPrice = async () => {
     const response = await isFrequentContributor();
     if (response) setPrice(0.05);
   };
-
-  console.log(NFT1);
 
   return (
     <>
