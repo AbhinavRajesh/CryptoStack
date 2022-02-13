@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import Web3 from "web3";
 
 import FeatureCard from "../components/FeatureCard";
 import Footer from "../components/Footer";
@@ -7,6 +6,29 @@ import Header from "../components/Header";
 import Login from "../components/Login";
 import Logo from "../components/Logo";
 import { Web3Context } from "../context/Web3Context";
+
+const features = [
+  {
+    title: "Decentralized",
+    description:
+      "The platform is completely decentralized, without any centralized control or ownership",
+  },
+  {
+    title: "Incentives",
+    description:
+      "Users receive CELO token rewards for providing reliable answers, moreover they earn points and can receive discounts in our NFT Marketplace",
+  },
+  {
+    title: "Reliable",
+    description:
+      "Content ownership completely resides with the user and incentives enable the generation of more reliable content",
+  },
+  {
+    title: "Privacy-preserving",
+    description:
+      "We do not collect any kind of user data, complete anonymity of users is guaranteed",
+  },
+];
 
 const Home = () => {
   const [loginPopupVisible, setLoginPopupVisible] = useState(false);
@@ -48,10 +70,9 @@ const Home = () => {
         <section id="how-it-works">
           <h2 className="font-bold text-[36px]">How it works?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-[20px]">
-            <FeatureCard />
-            <FeatureCard />
-            <FeatureCard />
-            <FeatureCard />
+            {features.map(({ title, description }, i) => (
+              <FeatureCard title={title} description={description} key={i} />
+            ))}
           </div>
         </section>
       </main>
