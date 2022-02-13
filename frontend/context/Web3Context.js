@@ -27,6 +27,8 @@ export const Web3Context = createContext({
   tryConnectWallet: () => {},
   questions: [],
   setQuestions: () => {},
+  userData: null,
+  setUserData: () => {},
 });
 
 const Web3Provider = ({ children }) => {
@@ -36,6 +38,7 @@ const Web3Provider = ({ children }) => {
   const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -232,12 +235,12 @@ const Web3Provider = ({ children }) => {
       });
   };
 
-  const getMyNFTS = async (account) => {
+  const getMyNFTS = async () => {
     let nfts = [];
     const nftCount = await CryptoStackNFT.methods.returnNFTCount().call();
     for (let i = 0; i < nftCount; ++i) {
       const nft = await CryptoStackNFT.methods.nfts(i).call();
-      if (nft.owner.toLowerCase() == account.toLowerCase()) {
+      if (nft.owner.toLowerCase() == address.toLowerCase()) {
         const uri = await getTokenURI(nft.tokenID);
         const resp = await fetch(uri);
         const metadata = await resp.json();
@@ -245,6 +248,7 @@ const Web3Provider = ({ children }) => {
         nfts.push(metadata);
       }
     }
+    return nfts;
   };
 
   const tryConnectWallet = async () => {
@@ -296,6 +300,8 @@ const Web3Provider = ({ children }) => {
         tryConnectWallet,
         questions,
         setQuestions,
+        userData,
+        setUserData,
       }}
     >
       {children}

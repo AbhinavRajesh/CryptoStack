@@ -35,6 +35,11 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link href="/marketplace">
+                <a>NFT Marketplace</a>
+              </Link>
+            </li>
+            <li>
               <Link href="/questions">
                 <a>Question</a>
               </Link>
@@ -43,7 +48,7 @@ const Header = () => {
               Ask a Question
             </li>
             <li>
-              <Link href="/">
+              <Link href="/profile">
                 <a>
                   {address
                     ? `${address?.slice(0, 5)}...${address?.slice(-5)}`
