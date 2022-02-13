@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useContext } from "react";
+import { Web3Context } from "../../context/Web3Context";
 import Logo from "../Logo";
 
 const Header = () => {
+  const { address } = useContext(Web3Context);
+
   return (
     <>
       <Head>
@@ -40,7 +44,11 @@ const Header = () => {
             </li>
             <li>
               <Link href="/">
-                <a>Profile/Logout</a>
+                <a>
+                  {address
+                    ? `${address?.slice(0, 5)}...${address?.slice(-5)}`
+                    : "Login"}
+                </a>
               </Link>
             </li>
           </ul>
