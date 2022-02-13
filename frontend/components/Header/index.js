@@ -48,7 +48,7 @@ const Header = () => {
               Ask a Question
             </li>
             <li>
-              <Link href="/profile">
+              <Link href={`/${address ? "profile" : ""}`}>
                 <a>
                   {address
                     ? `${address?.slice(0, 5)}...${address?.slice(-5)}`
