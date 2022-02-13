@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 
 import FeatureCard from "../components/FeatureCard";
@@ -10,32 +10,17 @@ import { Web3Context } from "../context/Web3Context";
 
 const Home = () => {
   const [loginPopupVisible, setLoginPopupVisible] = useState(false);
-  const { address, setAddress, setWeb3 } = useContext(Web3Context);
+  const { address, tryConnectWallet, getUserInfo, CryptoStack } =
+    useContext(Web3Context);
 
-  const tryConnectWallet = async () => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      setWeb3(window.web3);
-      try {
-        await window.ethereum.enable();
-        const accounts = await web3.eth.getAccounts();
-        setAddress(accounts?.[0]);
-        //here need to store variables - address=accounts[0] and web3=window.web3
-      } catch (error) {
-        // User denied account access...
-      }
-    } else if (window.web3) {
-      window.web3 = new Web3(web3.currentProvider);
-      setWeb3(window.web3);
-      const accounts = await web3.eth.getAccounts();
-      setAddress(accounts?.[0]);
-      //here need to store variables - address=accounts[0] and web3=window.web3
-    }
-    // Non-dapp browsers...
-    else {
-      console.log(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+  useEffect(() => {
+    if (CryptoStack && address) checkAuth();
+  }, [CryptoStack, address]);
+
+  const checkAuth = async () => {
+    const user = await getUserInfo();
+    if (user === null) {
+      setLoginPopupVisible(true);
     }
   };
 

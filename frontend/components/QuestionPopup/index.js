@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Web3Context } from "../../context/Web3Context";
 
-const Login = ({ visible, setVisible }) => {
-  const { loading, registerNewUser } = useContext(Web3Context);
-  const [username, setUsername] = useState("");
+const QuestionPopup = ({ visible, setVisible }) => {
+  const { loading, createNewQuestion } = useContext(Web3Context);
+  const [question, setQuestion] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await registerNewUser(username);
+    createNewQuestion(question);
   };
 
   if (!visible) return null;
@@ -32,23 +32,23 @@ const Login = ({ visible, setVisible }) => {
               onSubmit={handleSubmit}
               className="h-full flex flex-col items-start justify-center"
             >
-              <label htmlFor="username" className="text-lg font-semibold">
-                Enter username
+              <label htmlFor="question" className="text-lg font-semibold">
+                Question
               </label>
               <input
                 type="text"
-                name="username"
-                id="username"
-                onChange={(e) => setUsername(e.target.value)}
+                name="question"
+                id="question"
+                onChange={(e) => setQuestion(e.target.value)}
                 className="bg-gray-100 px-[20px] py-[10px] mt-[15px] w-full outline-none"
-                placeholder="Enter a username"
+                placeholder="Enter your question"
                 required
               />
               <button
                 type="submit"
                 className="bg-blue-500 text-white font-bold text-base px-[20px] py-[10px] rounded w-full mt-[15px]"
               >
-                Login
+                Ask
               </button>
             </form>
           </>
@@ -58,4 +58,4 @@ const Login = ({ visible, setVisible }) => {
   );
 };
 
-export default Login;
+export default QuestionPopup;

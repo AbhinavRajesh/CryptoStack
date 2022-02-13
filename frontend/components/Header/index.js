@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Web3Context } from "../../context/Web3Context";
 import Logo from "../Logo";
+import QuestionPopup from "../QuestionPopup";
 
 const Header = () => {
+  const [questionPopupVisible, setQuestionPopupVisible] = useState(false);
   const { address } = useContext(Web3Context);
 
   return (
@@ -37,10 +39,8 @@ const Header = () => {
                 <a>Question</a>
               </Link>
             </li>
-            <li>
-              <Link href="/ask">
-                <a>Ask a Question</a>
-              </Link>
+            <li onClick={() => setQuestionPopupVisible(true)}>
+              Ask a Question
             </li>
             <li>
               <Link href="/">
@@ -54,6 +54,10 @@ const Header = () => {
           </ul>
         </nav>
       </header>
+      <QuestionPopup
+        visible={questionPopupVisible}
+        setVisible={setQuestionPopupVisible}
+      />
     </>
   );
 };
