@@ -57,8 +57,7 @@ const Home = () => {
           <Logo scale={4} />
           <h1 className="text-[64px] font-bold mt-[20px]">CryptoStack</h1>
           <p className="text-center text-gray-600 max-w-[600px] mx-auto">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus
-            magnam molestiae, blanditiis consequuntur unde alias rem tem
+            Decentralized Q&A Platform and NFT Marketplace
           </p>
           <button
             onClick={tryConnectWallet}

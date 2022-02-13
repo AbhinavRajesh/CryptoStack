@@ -9,7 +9,7 @@ const QuestionCard = ({ answers, isAnswered, questionId, question }) => {
           ? answers?.[0]?.length > 110
             ? `${answers?.[0]?.slice(0, 107)}...`
             : answers?.[0]
-          : "Question not answered yet. Write an answer and get a chance to win a NFT!"}
+          : "No accepted asnwers yet. Write an answer and get a chance to win CELO tokens!"}
       </p>
       <Link href={`/${questionId}`}>
         <a className="inline-block text-white font-bold bg-blue-500 px-[20px] py-[10px] rounded mt-[20px]">

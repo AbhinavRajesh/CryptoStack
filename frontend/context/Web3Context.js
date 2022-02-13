@@ -20,6 +20,7 @@ export const Web3Context = createContext({
   acceptAnswer: async (answerId, account) => {},
   purchaseNFT: async (tokenURI, account) => {},
   getUserInfo: async () => {},
+  getUsername: async (account) => {},
   CryptoStack: null,
   CryptoStackNFT: null,
   loading: false,
@@ -87,6 +88,24 @@ const Web3Provider = ({ children }) => {
     }
   };
 
+  const getUsername = async (account) => {
+    const isRegistered = await CryptoStack.methods
+      .isRegisteredUser(address)
+      .call();
+    if (isRegistered) {
+      const uCount = await CryptoStack.methods.userCount().call();
+
+      for (let i = 0; i < uCount; ++i) {
+        const user = await CryptoStack.methods.users(i).call();
+        if (user.userAddress.toLowerCase() === account.toLowerCase()) {
+          return user.userName;
+        }
+      }
+    } else {
+      return null;
+    }
+  };
+
   const isFrequentContributor = async () => {
     const isContributor = await CryptoStack.methods
       .isFrequentContributor(address)
@@ -112,6 +131,7 @@ const Web3Provider = ({ children }) => {
     for (let i = 0; i < aCount; ++i) {
       const answer = await CryptoStack.methods.answers(i).call();
       if (answer.questionId == questionId) {
+        answer["replierUsername"] = await getUsername(answer.replierAddress);
         answers.push(answer);
       }
     }
@@ -189,8 +209,9 @@ const Web3Provider = ({ children }) => {
       });
   };
 
-  const purchaseNFT = async (tokenURI, account) => {
-    const isContributor = await isFrequentContributor(account);
+  const purchaseNFT = async (tokenURI) => {
+    setLoading(true);
+    const isContributor = await isFrequentContributor(address);
     let price;
     if (isContributor) {
       price = web3.utils.toWei("0.05");
@@ -199,14 +220,15 @@ const Web3Provider = ({ children }) => {
     }
     await CryptoStack.methods
       .payToMint(tokenURI)
-      .send({ from: account, value: price })
+      .send({ from: address, value: price })
       .on("transactionHash", function (hash) {})
       .on("receipt", function (receipt) {})
       .on("confirmation", (confirmationNumber, receipt) => {
-        // confirmation
+        setLoading(false);
       })
       .on("error", (error, receipt) => {
         window.alert("Error occured:", error);
+        setLoading(false);
       });
   };
 
@@ -269,6 +291,7 @@ const Web3Provider = ({ children }) => {
         CryptoStack,
         CryptoStackNFT,
         getUserInfo,
+        getUsername,
         loading,
         tryConnectWallet,
         questions,
